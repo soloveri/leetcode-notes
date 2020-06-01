@@ -9,6 +9,8 @@ categories:
 - algorithm
 ---
 
+这道题也是子集问题，与子集-II是同类型的题目。
+
 ### 0x1 题目详情
 
 [原题链接](https://leetcode-cn.com/problems/power-set-lcci/)
