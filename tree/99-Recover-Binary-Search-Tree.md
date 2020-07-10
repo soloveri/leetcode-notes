@@ -59,7 +59,7 @@ void Morris(TreeNode root){
             }
         }
         //已经没有左子树了，直接走向右子树就可
-        
+
         cur=cur.right;
     }
 }
@@ -77,6 +77,7 @@ void Morris(TreeNode root){
 上面这颗树的前序遍历为:3、1、8、10、9、2、6、11，这通过morris遍历很容易得到。如果一个能遇到两次，那么我们只取第一次；如果一个只能遇到第一次，那当然就只取第一次了。代码就从上面的改改就好了。
 
 ``` java "Morris前序遍历"
+
 class TreeNode{
     TreeNode left;
     TreeNode right;
@@ -95,6 +96,7 @@ void Morris(TreeNode root){
                 most_right=most_right.right;
             }
             if(most_right == null){
+                //
                 //首次将最右指针指向当前节点，第一次遇到
                 most_right.right=cur;
 
