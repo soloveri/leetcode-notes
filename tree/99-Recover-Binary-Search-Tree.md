@@ -97,7 +97,7 @@ void Morris(TreeNode root){
             }
             if(most_right == null){
                 //
-                //首次将最右指针指向当前节点，第一次遇到
+                //首次将最右指针指向当前节点，这里还没有设置过最右节点
                 most_right.right=cur;
 
                 System.out.println(cur.val);
