@@ -17,6 +17,7 @@ categories:
 ### 0x0 题目详情
 
 >给定一个二叉树
+
 struct Node {
   int val;
   Node *left;
