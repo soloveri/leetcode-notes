@@ -1,7 +1,7 @@
 ---
 title: 26. 删除排序数组中的重复项
 mathjax: true
-data: 
+data: 2020-07-18 19:57:12
 updated:
 tags:
 - [双指针]

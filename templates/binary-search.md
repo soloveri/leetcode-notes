@@ -59,15 +59,13 @@ std::vector::iterator BinarySearch(std::vector<int> target,int value){
 
 1. 中间索引mid的求法  
 mid的求法主要有两种：mid=(begin+end)/2和mid=begin+(end-begin)/2。而第一种可能会产生溢出，所以第二种方法最完美
-{% note info %}
 mid位置总结以及小技巧：
 
 - 区间长度为偶数，则区间刚好分为相等的两半，mid位于右侧区间第一个索引，即偶数相等右侧
 - 区间长度为奇数，则右侧区间长度比左侧多一，mid刚好位于区间正中间，将处mid外的区间分为相等，并且同样mid归属于有区间，即奇数多一右侧
 - <font color="green">mid=begin+(end-begin)>>1,除2可以使用移位运算符实现，稍微快一点点</font>
-{% endnote %}
 
-2. <font color=#FB5936>begin与end的更新 </font>
+1. <font color=#FB5936>begin与end的更新 </font>
 
 > **这一点最重要、最重要、最重要！！！是二分查找的关键，一定要理解**！
 
