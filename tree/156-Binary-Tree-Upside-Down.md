@@ -1,15 +1,16 @@
 ---
-title: 
+title: 156. 上下翻转二叉树
 mathjax: true
-data: 
+data: 2020-07-19 16:07:12
 updated:
 tags:
-- [双指针]
+- 二叉树
+- 找规律
 categories:
 - algorithm
 ---
 
-[原题链接]()
+[原题链接](https://leetcode-cn.com/problems/binary-tree-upside-down/)
 
 ---
 
