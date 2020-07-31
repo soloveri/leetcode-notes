@@ -82,7 +82,7 @@ class Solution {
         }
 
         //被匹配串还没被用完,但是匹配串用完了
-        if(strIndex!=str.length && patternIndex==pattern.length){
+        if(patternIndex==pattern.length){
             return false;
         }
         if(strIndex==str.length){
@@ -152,15 +152,10 @@ class Solution {
         int M=str.length;
         int N=pattern.length;
         dp[M][N]=true;
-        for(int i=0;i<M;i++){
-            dp[i][N]=false;
-        }
         for(int i=N-1;i>-1;i--){
             if((i+1)<N && pattern[i+1]=='*'){
                 dp[M][i]=dp[M][i+2];
                 
-            }else{
-                dp[M][i]=false;
             }
         }
         for(int i=M-1;i>-1;i--){
@@ -174,8 +169,6 @@ class Solution {
                     }
                 }else if((j+1)<N && pattern[j+1]=='*'){
                     dp[i][j]=dp[i][j+2];
-                }else{
-                    dp[i][j]=false;
                 }
             } 
         }
