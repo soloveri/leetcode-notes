@@ -54,8 +54,11 @@ IT 部门中，Max 获得了最高的工资，Randy 和 Joe 都拿到了第二�
 
 ### 0x1 解题思路
 
+对于没有窗口函数的MySQL5.7来说,要想实现topK的功能。基本步骤如下:
 
+我们想要找到的就是符合要求的员工ID。那么我们将Employee与自身进行左连接,连接要求时部门要求一样,但是要求左表e1的Salary小于右表e2的Salary。这么做的目的就是找出在同一部门中,比左表员工Salary高的员工。
 
+然后再对左表中的员工ID进行聚合,分组条件比当前员工薪水高的条目小于三个,这样加上当前员工,每个部门薪水的top3就求出来了。这种方法适用于topK问题。
 
 
 ### 0x2 代码实现
@@ -70,8 +73,10 @@ on e.DepartmentId=d.Id
 where e.Id in(
     select e1.Id
     from Employee as e1 left join Employee as e2
+    # 要求同一部门,并且左表薪水低于右表
     on e1.DepartmentId=e2.DepartmentId and e1.Salary<e2.Salary
     group by e1.Id
+    # 筛选出比当前员工薪水高的人只有两个的员工Id
     having count(distinct e2.Salary)<3
 )
 order by d.Id asc,Salary desc;
