@@ -102,7 +102,7 @@ public class Code02_Manacher {
 		}
 		char[] str = manacherString(s); // 1221 ->  #1#2#2#1#
 		int[] pArr = new int[str.length]; // 回文半径数组
-		int C = -1; // 中心
+		int C = -1; // 中心,也是一个下标
 		int R = -1; // 回文右边界的再往右一个位置    最右的有效区是R-1位置
 		int max = Integer.MIN_VALUE; // 扩出来的最大值
 		for (int i = 0; i != str.length; i++) { // 每一个位置都求回文半径
