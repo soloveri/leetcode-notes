@@ -44,6 +44,33 @@ categories:
 
 这是最普通的做法,需要三个指针,我们可以将`k`这个指针使用`i+j`优化掉,`i+j`表示`s3`中已经匹配的长度,dp数组由三维转向了二维。
 
+---
+
+**Extension:**
+
+这道题还可以通过第64题[最小路径和](64-Minimum-Path-Sum.md)的思路求解,这里借[一张图](https://leetcode-cn.com/problems/interleaving-string/solution/lei-si-lu-jing-wen-ti-zhao-zhun-zhuang-tai-fang-ch/):
+
+![mininum-path-sum](images/97.png)
+
+可以看到,就是在二维数组中找到一条路径符合目标字符串。每次走的方向只能选择向下或者向右。
+
+于是可定义 boolean[][] dp ，dp[i][j] 代表 s1 前 i 个字符与 s2 前 j 个字符拼接成 s3 的 i+j 字符，也就是存在目标路径能够到达 i ,j ；
+状态方程：
+
+边界 1：dp[0][0] = true;
+边界 2：if i=0 : dp[0]dp[j] = s2[0-j) equals s3[0,j) 遇到 false 后面可以直接省略
+边界 3：if j=0 : dp[i]dp[0] = s1[0-i) equals s3[0,i) 遇到 false 后面可以直接省略
+
+其他情况，到达（i，j）可能由（i-1,j）点向下一步，选择 s1[i-1] 到达；也可能由 （i,j-1） 点向右一步，选择 s2[j-1] 到达；
+dp[i,j] = (dp[i-1][j] &&s3[i+j-1] == s1[i-1]) || (dp[i][j-1] && s3[i+j-1] == s2[j-1])
+
+>作者：gousiqi
+链接：https://leetcode-cn.com/problems/interleaving-string/solution/lei-si-lu-jing-wen-ti-zhao-zhun-zhuang-tai-fang-ch/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+---
+
 ### 0x2 代码实现
 
 最普通的做法,三个指针,注释部分是原始递归代码:
@@ -57,7 +84,6 @@ class Solution {
         if(s1.length()+s2.length() !=s3.length()){
             return false;
         }
-        
         return recur(s1,s2,s3,0,0,0);
     }
     private boolean recur(String s1,String s2,String s3,int i,int j,int k){
@@ -100,7 +126,6 @@ class Solution {
         //     result=recur(s1,s2,s3,i,j+1,k+1);
         // }
         // return result;
-        
     }
 }
 ```
@@ -118,7 +143,6 @@ class Solution {
         if(s1.length()+s2.length() !=s3.length()){
             return false;
         }
-        
         return recur(s1,s2,s3);
     }
     private boolean recur(String s1,String s2,String s3){
@@ -141,7 +165,6 @@ class Solution {
             for(int j=n-1;j>-1;j--){
                 if(s1.charAt(i)==s3.charAt(i+j)){
                     dp[i][j]=dp[i+1][j];
-                    
                 }
                 if(!dp[i][j] && s2.charAt(j)==s3.charAt(i+j)){
                     dp[i][j]=dp[i][j+1];
@@ -163,7 +186,6 @@ class Solution {
         //     result=recur(s1,s2,s3,i,j+1);
         // }
         // return result;
-        
     }
 }
 ```
@@ -171,3 +193,6 @@ class Solution {
 ### 0x3 课后总结
 
 字符串的暴力递归我怎么就是想不到呢???
+
+更新:
+现在对字符串的相关暴力递归好像有点感觉了,一般都是查看每个字符是否符合规则,不符合怎么样,符合怎么样,直到将整个字符串遍历完成,大致都差不多是这个方向。
