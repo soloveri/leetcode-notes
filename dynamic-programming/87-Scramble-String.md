@@ -176,10 +176,10 @@ for(int len=1;len<=length;len++){
 
      s1    s2
     [0,1),[0,1)
-    [1,2),[1,2)
+    [1,2),[1,2)     
     [0,1),[1,2)
     [1,2),[0,1)
-可以看到,s1的每个下标i都与s2的每个下标j进行了两两匹配
+可以看到,s1的每个下标i都与s2的每个下标j进行了两两匹配。而且当取出字符串的长度为len时,那么取出的这个字符串有效下标就为[i,i+len)
 
 ``` java
 class Solution {
@@ -204,6 +204,8 @@ class Solution {
         int length=s1.length();
         boolean[][][] dp=new boolean[length+1][length][length];
         for(int len=1;len<=length;len++){
+            //当前要判定的字串长度为len,那么其实i指针的位置是有限的,从i往右算,当i+len=length时,这已经是i的极限位置
+            //因为在递归中,当
             for(int i=0;i+len<=length;i++){
                 for(int j=0;j+len<=length;j++){
                     if(len==1){
@@ -227,5 +229,6 @@ class Solution {
 
 ```
 
-
 ### 0x3 课后总结
+
+这写个跟X一样,靠,恶心死我了。   
