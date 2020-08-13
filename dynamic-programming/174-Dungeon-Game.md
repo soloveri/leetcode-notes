@@ -30,9 +30,12 @@ categories:
 **测试用例:**
 
 >例如，考虑到如下布局的地下城，如果骑士遵循最佳路径 右 -> 右 -> 下 -> 下，则骑士的初始健康点数至少为 7。
--2 (K)	-3	3
--5	-10	1
-10	30	-5 (P)
+
+|---|---|---|
+|-2 (K)|-3|	3|
+|--|---|---|
+|-5|-10|1|
+|10	|30|-5 (P)|
  
 
 >说明:
@@ -41,8 +44,55 @@ categories:
 
 ### 0x1 解题思路
 
+这道题一开始就要想到肯定从公主的位置推到王子的位置来计算最小的健康值。因为我们只有知道能够在公主位置成功存活的最小健康值是多少,我们才能推到出王子至少需要多少健康值。
+
+这道题有点像[64.最小路径和](64-Minimum-Path-Sum.md),第64题是从左上角开始,每次只能向右或向下。这道题是从右下角开始,每次只能向上或向左移动。
+
+首先,能够在公主位置成功存活的情况分为两种:
+
+- 公主位置的健康值不为负数,那么只要我们在到达公主位置之前的健康大于0就可以存活下来,到达之前的最小健康值当然为1了。
+- 公主位置的健康值为负数,那么我们就需要保证在到达公主位置之前王子的健康值必须能够抵消公主位置对健康值带来的负影响,并且要求在抵消后剩余的健康至至少为1,因为这样才能存活下来。
+
+对于其他普通的位置,其实和上面的情况一样,对于非负数的健康值是一套标准,对于负数是一套标准。
+
 
 ### 0x2 代码实现
 
+``` java
+class Solution {
+    public int calculateMinimumHP(int[][] dungeon) {
+        if(dungeon==null || dungeon.length==0 || dungeon[0].length==0){
+            return 0;
+        }
+        int[][] dp=new int[dungeon.length][dungeon[0].length];
+        int M=dungeon.length-1;
+        int N=dungeon[0].length-1;
+        dp[M][N]=dungeon[M][N]<0?1-dungeon[M][N]:1;
+        for(int i=N-1;i>-1;i--){
+            dp[M][i]=dungeon[M][i]>=dp[M][i+1]?1:dp[M][i+1]-dungeon[M][i];
+        }
+        for(int i=M-1;i>-1;i--){
+            dp[i][N]=dungeon[i][N]>=dp[i+1][N]?1:dp[i+1][N]-dungeon[i][N];
+        }
+        for(int i=M-1;i>-1;i--){
+            for(int j=N-1;j>-1;j--){
+                if(dungeon[i][j]<0){
+                    dp[i][j]=Math.min(dp[i+1][j],dp[i][j+1])-dungeon[i][j];
+                }else{
+                    if(dungeon[i][j]>=Math.min(dp[i+1][j],dp[i][j+1])){
+                        dp[i][j]=1;
+                    }else {
+                        dp[i][j]=Math.min(dp[i+1][j],dp[i][j+1])-dungeon[i][j];
+                    }
+                }
+            }
+        }
+        return dp[0][0];
+
+    }
+}
+```
 
 ### 0x3 课后总结
+
+感觉[64.求最小路径和](64-Minimum-Path-Sum.md)这种题型扩展出了好多题型,比如第[97.交错字符串](97-Interleaving-String.md)也可以使用求最小路径和的思路去求解。这种思路对于二维矩阵类的dp值得推广。
