@@ -1,7 +1,7 @@
 ---
 title: 368. 最大整除子集
 mathjax: true
-data: 
+data: 2020-08-28 19:33:27
 updated:
 tags:
 - 动态规划
