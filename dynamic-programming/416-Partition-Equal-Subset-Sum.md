@@ -60,10 +60,6 @@ class Solution {
     }
     //重量从nums中选择
     boolean recur(int[] values,int index,int already,int bag){
-        boolean[][] dp=new boolean[values.length+1][bag+1];
-        int N=values.length;
-        int M=bag;
-
         if(already== bag){
             return true;
         }
